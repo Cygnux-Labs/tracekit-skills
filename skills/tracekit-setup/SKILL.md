@@ -60,13 +60,17 @@ tracekit init --dev --v2 --agent <name>
 `<name>` is `claude` (Claude Code, the default and the stable path), `codex` (Codex CLI), `cursor`, `gemini` (Gemini
 CLI), `opencode`, `kilo` (Kilo Code), `goose`, `qwen` (Qwen Code), `droid` (Factory Droid), `antigravity` (Antigravity
 CLI), `crush`, `devin` (Devin), `cline` (Cline), `gptme`, `openhands` (OpenHands), `copilot` (GitHub Copilot CLI),
-`codebuddy` (CodeBuddy Code) or `kiro` (Kiro CLI 3.0 or later); all but Claude Code are experimental. Init keeps
-the agent's other settings and hooks. For any other agent, tell the operator it isn't supported; don't adapt
-another agent's hooks.
+`codebuddy` (CodeBuddy Code), `kiro` (Kiro CLI 3.0 or later) or `interpreter` (Open Interpreter 0.0.x, the Rust
+CLI); all but Claude Code are experimental. Init keeps the agent's other settings and hooks. The Python Open
+Interpreter (`pip install open-interpreter`, 0.4.x) also installs an `interpreter` command but runs no hooks, so
+Tracekit can't record it. For any other agent, tell the operator it isn't supported; don't adapt another agent's
+hooks.
 
 The hooks apply only to new sessions: ask the operator to start one from a new terminal, so a PATH change applies.
 Codex runs a new hook only once a person trusts it: the operator runs `codex` and accepts Tracekit's hooks at its
-startup prompt or in `/hooks`.
+startup prompt or in `/hooks`. Open Interpreter does the same: the operator runs `interpreter`, types `/hooks` and
+trusts Tracekit's hooks. Until then `interpreter exec` runs none of them, and `tracekit doctor` warns
+(`D-INTERPRETER-HOOK-TRUST`).
 
 ## 4. Check the setup and verify a run
 
